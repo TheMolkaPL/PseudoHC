@@ -1,7 +1,6 @@
 package com.gmail.grzegorz2047.pseudohc;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
+import api.file.YmlFileHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -9,10 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class PseudoHC extends JavaPlugin {
 
-    Table<Integer, Integer, String> table = HashBasedTable.create();
+    //Table<Integer, Integer, String> table = HashBasedTable.create();
     @Override
     public void onEnable() {
-        super.onEnable();
+        System.out.println(this.getName()+ "juz sobie dziala");
+        this.saveDefaultConfig();
     }
 
     @Override

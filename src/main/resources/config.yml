@@ -1,0 +1,9 @@
+
+mysql:
+    prefix: '_phc'
+    players:
+       host:
+       database:
+       table:
+       user:
+       password:
