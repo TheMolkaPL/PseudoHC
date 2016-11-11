@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Users  implements Storage{
 
-    ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
+    private ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
 
 
     @Override

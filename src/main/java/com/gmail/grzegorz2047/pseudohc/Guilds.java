@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Guilds  implements Storage{
 
-    ConcurrentHashMap<String, Guild> guilds = new ConcurrentHashMap<String, Guild>();
+    private ConcurrentHashMap<String, Guild> guilds = new ConcurrentHashMap<String, Guild>();
 
     @Override
     public void load(){

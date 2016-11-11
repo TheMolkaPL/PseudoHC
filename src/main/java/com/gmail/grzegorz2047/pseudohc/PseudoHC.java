@@ -1,20 +1,13 @@
 package com.gmail.grzegorz2047.pseudohc;
 
-import api.file.YmlFileHandler;
-import com.gmail.grzegorz2047.pseudohc.database.DatabaseConnector;
 import com.gmail.grzegorz2047.pseudohc.database.queries.SQLManager;
 import com.gmail.grzegorz2047.pseudohc.listeners.AsyncPreLoginListener;
 import com.gmail.grzegorz2047.pseudohc.listeners.PlayerJoinListener;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -45,6 +38,7 @@ public class PseudoHC extends JavaPlugin {
             e.printStackTrace();
             Bukkit.getPluginManager().disablePlugin(this);
         }
+        initStorage();
         registerListeners();
     }
 
@@ -54,6 +48,10 @@ public class PseudoHC extends JavaPlugin {
         super.onDisable();
     }
 
+    private void initStorage(){
+        fillStorage();
+        loadStorage();
+    }
     private void fillStorage() {
         storage.put("Users", new Users());
         storage.put("Guilds", new Guilds());
