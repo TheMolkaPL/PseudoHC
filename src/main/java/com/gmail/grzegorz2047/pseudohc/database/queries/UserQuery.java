@@ -45,7 +45,7 @@ public class UserQuery extends Query {
         try {
             connection = getConnection();
             String query =
-                    "INSERT INTO " +
+                    "INSERT  INTO OR IGNORE " +
                             table +
                             "(username, firstjoindate) VALUES(?, ?)";
             //System.out.print(query + " zapytanie");

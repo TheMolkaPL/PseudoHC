@@ -22,8 +22,7 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
-        UserQuery userQuery = (UserQuery) plugin.getSqlManager().getQueries().get("UserQuery");
-        userQuery.addPlayer(p.getName());
+
     }
 
 }
