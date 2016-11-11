@@ -1,9 +1,11 @@
 
 mysql:
-    prefix: '_phc'
+    prefix: 'phc_'
+    type: 'SQLITE'
     players:
-       host:
-       database:
-       table:
-       user:
-       password:
+       host: localhost
+       port: 3306
+       database: database
+       table: table
+       user: user
+       password: password
