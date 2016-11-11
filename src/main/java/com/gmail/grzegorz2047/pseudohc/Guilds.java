@@ -9,6 +9,7 @@ public class Guilds  implements Storage{
 
     private ConcurrentHashMap<String, Guild> guilds = new ConcurrentHashMap<String, Guild>();
 
+
     @Override
     public void load(){
         if(guilds.isEmpty()){
