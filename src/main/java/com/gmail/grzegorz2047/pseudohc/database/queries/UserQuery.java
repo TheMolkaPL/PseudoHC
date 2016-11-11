@@ -26,9 +26,9 @@ public class UserQuery extends Query {
                     "CREATE TABLE IF NOT EXISTS " +
                             table +
                             "(" +
-                            "username VARCHAR(16) PRIMARY KEY," +
-                            "guild VARCHAR(32)," +
-                            "elopoint INT NOT NULL DEFAULT  1000," +
+                            "username VARCHAR(16) PRIMARY KEY NOT NULL," +
+                            "guild VARCHAR(32) NOT NULL DEFAULT ''," +
+                            "elopoints INT NOT NULL DEFAULT  1000," +
                             "kills INT NOT NULL DEFAULT  0," +
                             "deaths INT NOT NULL DEFAULT  0," +
                             "firstjoindate DATETIME," +
@@ -121,7 +121,7 @@ public class UserQuery extends Query {
         try {
             connection = getConnection();
             String query =
-                    "SELECT username FROM " + table + " WHERE username = ? LIMIT 1";
+                    "SELECT * FROM " + table + " WHERE username = ? LIMIT 1";
 
             //System.out.print(query + " zapytanie");
             statement = connection.prepareStatement(query);
