@@ -25,7 +25,7 @@ public class PseudoHC extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println(this.getName() + "juz sobie dziala");
+        System.out.println(this.getName() + " juz sobie dziala");
         this.saveDefaultConfig();
         config = this.getConfig();
         try {
