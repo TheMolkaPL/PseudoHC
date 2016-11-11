@@ -3,10 +3,12 @@ package com.gmail.grzegorz2047.pseudohc;
 import api.file.YmlFileHandler;
 import com.gmail.grzegorz2047.pseudohc.database.DatabaseConnector;
 import com.gmail.grzegorz2047.pseudohc.database.queries.SQLManager;
+import com.gmail.grzegorz2047.pseudohc.listeners.PlayerJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
@@ -33,14 +35,13 @@ public class PseudoHC extends JavaPlugin {
                     config.getString("mysql.players.database"),
                     config.getString("mysql.players.user"),
                     config.getString("mysql.players.password"),
-                    config.getString("mysql.prefix"),
-                    SQLManager.DATABASETYPE.valueOf(config.getString("mysql.type")),
-                    this
+                    config.getString("mysql.prefix")
             );
         } catch (Exception e) {
             e.printStackTrace();
             Bukkit.getPluginManager().disablePlugin(this);
         }
+        registerListeners();
     }
 
 
@@ -51,5 +52,10 @@ public class PseudoHC extends JavaPlugin {
 
     public SQLManager getSqlManager() {
         return sqlManager;
+    }
+
+    private void registerListeners() {
+        PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new PlayerJoinListener(this), this);
     }
 }

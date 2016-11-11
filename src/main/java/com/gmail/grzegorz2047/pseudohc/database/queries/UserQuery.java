@@ -18,21 +18,49 @@ public class UserQuery extends Query {
 
     @Override
     public void createTable() throws SQLException {
-        Connection connection = this.databaseConnector.getConnection();//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
+        Connection connection = null;//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
+        try {
+            connection = getConnection();
+            String query =
+                    "CREATE TABLE IF NOT EXISTS " +
+                            table +
+                            "(" +
+                            "username VARCHAR(16) PRIMARY KEY," +
+                            "elopoint INT NOT NULL DEFAULT  0," +
+                            "kills INT NOT NULL DEFAULT  0," +
+                            "deaths INT NOT NULL DEFAULT  0," +
+                            "firstjoindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                            "lastseen TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP" +
+                            ");";
+            //System.out.print(query + " zapytanie");
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //String query = "CREATE TABLE " + table + "(username VARCHAR(16) PRIMARY KEY, elopoint INT, kills INT, deaths INT, firstjoindate TIMESTAMP DEFAULT  NOW(), lastseen TIMESTAMP) ";
-        String query =
-                "CREATE TABLE " +
-                        table +
-                        "(" +
-                        "userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE," +
-                        "elopoint INT NOT NULL," +
-                        "kills INT NOT NULL," +
-                        "deaths INT NOT NULL," +
-                        "firstjoindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                        "lastseen TIMESTAMP NOT NULL" +
-                        ");";
-        //System.out.print(query + " zapytanie");
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.execute();
+
+    }
+
+    public void addPlayer(String username) {
+        Connection connection = null;//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
+        try {
+            connection = getConnection();
+            String query =
+                    "INSERT INTO " +
+                            table +
+                            "(username) VALUES(" + username + ")";
+            //System.out.print(query + " zapytanie");
+            PreparedStatement statement = null;
+
+            statement = connection.prepareStatement(query);
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //String query = "CREATE TABLE " + table + "(username VARCHAR(16) PRIMARY KEY, elopoint INT, kills INT, deaths INT, firstjoindate TIMESTAMP DEFAULT  NOW(), lastseen TIMESTAMP) ";
     }
 }

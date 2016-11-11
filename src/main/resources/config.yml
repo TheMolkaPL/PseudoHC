@@ -1,7 +1,6 @@
 
 mysql:
     prefix: 'phc_'
-    type: 'SQLITE'
     players:
        host: localhost
        port: 3306

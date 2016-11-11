@@ -15,8 +15,8 @@ public class SQLManager {
 
     public enum DATABASETYPE {SQLITE, MYSQL}
 
-    public SQLManager(String host, int port, String db, String user, String password, String tablePrefix, DATABASETYPE type, Plugin plugin) throws SQLException {
-        connectWithDatabase(host, port, db, user, password, type, plugin);
+    public SQLManager(String host, int port, String db, String user, String password, String tablePrefix) throws SQLException {
+        connectWithDatabase(host, port, db, user, password);
 
         addQueries(tablePrefix);
         createTables();
@@ -32,12 +32,8 @@ public class SQLManager {
         queries.put("UserQuery", new UserQuery(databaseConnector, "Users", tablePrefix));
     }
 
-    private void connectWithDatabase(String host, int port, String db, String user, String password, DATABASETYPE type, Plugin plugin) {
-        if (type.equals(DATABASETYPE.MYSQL)) {
-            databaseConnector = new DatabaseConnector(host, port, db, user, password);
-        } else if (type.equals(DATABASETYPE.SQLITE)) {
-            databaseConnector = new DatabaseConnector(host, port, db, user, password, plugin.getDataFolder().getAbsolutePath());
-        }
+    private void connectWithDatabase(String host, int port, String db, String user, String password) {
+        databaseConnector = new DatabaseConnector(host, port, db, user, password);
     }
 
     public HashMap<String, Query> getQueries() {
