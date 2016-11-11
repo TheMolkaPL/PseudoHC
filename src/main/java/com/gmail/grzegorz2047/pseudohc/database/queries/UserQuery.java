@@ -44,7 +44,7 @@ public class UserQuery extends Query {
 
     }
 
-    public void addPlayer(String username) {
+    private void addPlayer(String username) {
         Connection connection = null;//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
         PreparedStatement statement = null;
         try {
@@ -75,7 +75,7 @@ public class UserQuery extends Query {
         //String query = "CREATE TABLE " + table + "(username VARCHAR(16) PRIMARY KEY, elopoint INT, kills INT, deaths INT, firstjoindate TIMESTAMP DEFAULT  NOW(), lastseen TIMESTAMP) ";
     }
 
-    public ConcurrentHashMap<String, User> loadAllUsers() {
+    public ConcurrentHashMap<String, User> loadAllUsers() {//Pewnie tego nie użyje xd
         ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
         Connection connection = null;//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
         PreparedStatement statement = null;
@@ -115,6 +115,7 @@ public class UserQuery extends Query {
     }
 
     public User loadUser(String username) throws PlayerNotFoundException {
+        addPlayer(username);
         Connection connection = null;//userid BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
         PreparedStatement statement = null;
         try {

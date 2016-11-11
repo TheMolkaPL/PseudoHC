@@ -24,4 +24,12 @@ public class User {
         this.lastseen = lastseen;
         this.guild = guild;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getGuild() {
+        return guild;
+    }
 }

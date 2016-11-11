@@ -1,8 +1,7 @@
 package com.gmail.grzegorz2047.pseudohc;
 
 import com.gmail.grzegorz2047.pseudohc.database.queries.SQLManager;
-import com.gmail.grzegorz2047.pseudohc.listeners.AsyncPreLoginListener;
-import com.gmail.grzegorz2047.pseudohc.listeners.PlayerJoinListener;
+import com.gmail.grzegorz2047.pseudohc.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -71,6 +70,9 @@ public class PseudoHC extends JavaPlugin {
     private void registerListeners() {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new PlayerJoinListener(this), this);
+        pm.registerEvents(new PlayerQuitListener(this), this);
+        pm.registerEvents(new PlayerLoginListener(this), this);
+        pm.registerEvents(new PlayerKickListener(this), this);
         pm.registerEvents(new AsyncPreLoginListener(this), this);
     }
 
