@@ -13,7 +13,6 @@ public class SQLManager {
     private DatabaseConnector databaseConnector;
     private HashMap<String, Query> queries = new HashMap<String, Query>();
 
-    public enum DATABASETYPE {SQLITE, MYSQL}
 
     public SQLManager(String host, int port, String db, String user, String password, String tablePrefix) throws SQLException {
         connectWithDatabase(host, port, db, user, password);
