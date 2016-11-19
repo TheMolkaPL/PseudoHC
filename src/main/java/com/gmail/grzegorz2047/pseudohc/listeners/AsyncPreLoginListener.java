@@ -33,7 +33,7 @@ public class AsyncPreLoginListener implements Listener {
         UserQuery userQuery = (UserQuery) plugin.getSqlManager().getQueries().get("UserQuery");
         try {
             User user = userQuery.loadUser(username);
-            Users users = (Users) plugin.getStorage().get("Users");
+            Users users = (Users) plugin.getStorage("Users");
             users.precacheUser(user);
         } catch (PlayerNotFoundException e1) {
             e1.printStackTrace();

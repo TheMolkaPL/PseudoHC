@@ -24,7 +24,7 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
-        Users users = (Users) plugin.getStorage().get("Users");
+        Users users = (Users) plugin.getStorage("Users");
         User user = users.loadUserData(p.getName());
         p.sendMessage("Twoje dane: nick: " + user.getUsername() + " guild: " + user.getGuild());
     }

@@ -35,6 +35,10 @@ public class Users implements Storage {
         users.remove(username);
     }
 
+    public User findUser(String username) {
+        return users.get(username);
+    }
+
     public void removePrecachedPlayer(String username) {
         precachedUsers.remove(username);
     }

@@ -22,7 +22,7 @@ public class PlayerLoginListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e){
         Player p = e.getPlayer();
-        Users users = (Users) plugin.getStorage().get("Users");
+        Users users = (Users) plugin.getStorage("Users");
         if(!e.getResult().equals(PlayerLoginEvent.Result.ALLOWED)){
             users.removePrecachedPlayer(p.getName());
         }

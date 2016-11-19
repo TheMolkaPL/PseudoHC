@@ -1,7 +1,10 @@
 package com.gmail.grzegorz2047.pseudohc;
 
+import com.gmail.grzegorz2047.pseudohc.api.file.YmlFileHandler;
+import com.gmail.grzegorz2047.pseudohc.commands.guild.GuildCommand;
 import com.gmail.grzegorz2047.pseudohc.database.queries.SQLManager;
 import com.gmail.grzegorz2047.pseudohc.listeners.*;
+import com.gmail.grzegorz2047.pseudohc.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -16,6 +19,7 @@ public class PseudoHC extends JavaPlugin {
 
 
     private FileConfiguration config;
+    private FileConfiguration configMessages;
     private SQLManager sqlManager;
     private HashMap<String, Storage> storage = new HashMap<String, Storage>();
 
@@ -23,6 +27,9 @@ public class PseudoHC extends JavaPlugin {
     public void onEnable() {
         System.out.println(this.getName() + " juz sobie dziala");
         this.saveDefaultConfig();
+        YmlFileHandler messageFile = new YmlFileHandler(this, this.getDataFolder().toString(), "messages.yml");
+        messageFile.load();
+        configMessages = messageFile.getConfig();
         config = this.getConfig();
         try {
             sqlManager = new SQLManager(
@@ -39,6 +46,7 @@ public class PseudoHC extends JavaPlugin {
         }
         initStorage();
         registerListeners();
+        registerCommands();
     }
 
 
@@ -47,14 +55,16 @@ public class PseudoHC extends JavaPlugin {
         super.onDisable();
     }
 
-    private void initStorage(){
+    private void initStorage() {
         fillStorage();
         loadStorage();
     }
+
     private void fillStorage() {
         storage.put("Users", new Users());
         storage.put("Guilds", new Guilds());
         storage.put("Regions", new Regions());
+        storage.put("Messages", new Messages(configMessages));
     }
 
     private void loadStorage() {
@@ -76,7 +86,12 @@ public class PseudoHC extends JavaPlugin {
         pm.registerEvents(new AsyncPreLoginListener(this), this);
     }
 
-    public HashMap<String, Storage> getStorage() {
-        return storage;
+    private void registerCommands() {
+        this.getCommand("guild").setExecutor(new GuildCommand("guild", new String[]{"g", "gildia", "guild", "clan", "f"}, this));
+    }
+
+
+    public Storage getStorage(String storageType) {
+        return this.storage.get(storageType);
     }
 }
