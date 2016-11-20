@@ -65,6 +65,7 @@ public class PseudoHC extends JavaPlugin {
         storage.put("Guilds", new Guilds());
         storage.put("Regions", new Regions());
         storage.put("Messages", new Messages(configMessages));
+        storage.put("Configuration", new Configuration(config));
     }
 
     private void loadStorage() {

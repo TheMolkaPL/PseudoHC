@@ -14,6 +14,7 @@ public class SQLManager {
     private HashMap<String, Query> queries = new HashMap<String, Query>();
 
 
+
     public SQLManager(String host, int port, String db, String user, String password, String tablePrefix) throws SQLException {
         connectWithDatabase(host, port, db, user, password);
 

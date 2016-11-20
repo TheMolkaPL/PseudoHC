@@ -28,7 +28,6 @@ public class Messages implements Storage {
     public void load() {
         ConfigurationSection section = config.getConfigurationSection("");
         for (String key : section.getKeys(false)) {
-            System.out.print(" " + key);
             messages.put(key, ChatColor.translateAlternateColorCodes('&', config.getString(key)));
         }
     }
