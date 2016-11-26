@@ -1,8 +1,7 @@
-name: PseudoHC
-version: 0.0.1
-main: com.gmail.grzegorz2047.pseudohc.PseudoHC
-commands:
-    guild:
-        description: Commands related to guilds
-        aliases: [g, gildia, guild, clan, f]
-        usage: /guild <arg[s]...> Type 'guild help' for help
+name: '${project.name}'
+version: 'MC${plugin.minecraft}: ${project.version}-${git.commit.id.abbrev}'
+description: '${project.description}'
+authors:
+- grzegorz2047
+website: 'https://github.com/grzegorz2047/PseudoHC'
+main: '${plugin.main}'

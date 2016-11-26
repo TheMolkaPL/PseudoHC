@@ -1,14 +1,22 @@
 package com.gmail.grzegorz2047.pseudohc;
 
 import com.gmail.grzegorz2047.pseudohc.api.file.YmlFileHandler;
-import com.gmail.grzegorz2047.pseudohc.commands.guild.GuildCommand;
+import com.gmail.grzegorz2047.pseudohc.command.BaseCommand;
+import com.gmail.grzegorz2047.pseudohc.command.GuildCommands;
+import com.gmail.grzegorz2047.pseudohc.command.PluginCommands;
 import com.gmail.grzegorz2047.pseudohc.database.queries.SQLManager;
-import com.gmail.grzegorz2047.pseudohc.listeners.*;
+import com.gmail.grzegorz2047.pseudohc.listeners.AsyncPreLoginListener;
+import com.gmail.grzegorz2047.pseudohc.listeners.PlayerJoinListener;
+import com.gmail.grzegorz2047.pseudohc.listeners.PlayerKickListener;
+import com.gmail.grzegorz2047.pseudohc.listeners.PlayerLoginListener;
+import com.gmail.grzegorz2047.pseudohc.listeners.PlayerQuitListener;
 import com.gmail.grzegorz2047.pseudohc.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.themolka.commons.Commons;
+import pl.themolka.commons.CommonsFactory;
 
 import java.util.HashMap;
 
@@ -16,7 +24,7 @@ import java.util.HashMap;
  * Created by grzegorz2047 on 10.11.2016.
  */
 public class PseudoHC extends JavaPlugin {
-
+    private Commons commons;
 
     private FileConfiguration config;
     private FileConfiguration configMessages;
@@ -25,7 +33,8 @@ public class PseudoHC extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println(this.getName() + " juz sobie dziala");
+        this.commons = CommonsFactory.bukkitFactory(this).build();
+
         this.saveDefaultConfig();
         YmlFileHandler messageFile = new YmlFileHandler(this, this.getDataFolder().toString(), "messages.yml");
         messageFile.load();
@@ -47,6 +56,8 @@ public class PseudoHC extends JavaPlugin {
         initStorage();
         registerListeners();
         registerCommands();
+
+        this.getLogger().info(this.getName() + " juz sobie dziala");
     }
 
 
@@ -74,6 +85,10 @@ public class PseudoHC extends JavaPlugin {
         }
     }
 
+    public Commons getCommons() {
+        return this.commons;
+    }
+
     public SQLManager getSqlManager() {
         return sqlManager;
     }
@@ -88,7 +103,13 @@ public class PseudoHC extends JavaPlugin {
     }
 
     private void registerCommands() {
-        this.getCommand("guild").setExecutor(new GuildCommand("guild", new String[]{"g", "gildia", "guild", "clan", "f"}, this));
+        BaseCommand command = new BaseCommand(this);
+        this.getCommons().getCommands().registerCommandObject(command);
+
+        command.registerCommandObjects(
+                new GuildCommands(this),
+                new PluginCommands(this)
+        );
     }
 
 
